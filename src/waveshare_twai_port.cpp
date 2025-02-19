@@ -25,6 +25,7 @@ static void handle_rx_message(twai_message_t &message)
       Serial.printf(" %d = %02x,", i, message.data[i]); // Print each byte of the message data
     }
     Serial.println(""); // Print a new line
+    lv_arc_set_value(ui_Arc1, message.data[0]);
   }
 }
 
@@ -33,7 +34,7 @@ bool waveshare_twai_init()
 {
   Serial.println("Driver installing");
   // Initialize configuration structures using macro initializers
-  twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT((gpio_num_t)TX_PIN, (gpio_num_t)RX_PIN, TWAI_MODE_LISTEN_ONLY);
+  twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT((gpio_num_t)TX_PIN, (gpio_num_t)RX_PIN, TWAI_MODE_NORMAL);
   twai_timing_config_t t_config = TWAI_TIMING_CONFIG_250KBITS();   // set 250Kbps
   twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL(); // Accept all messages
 
