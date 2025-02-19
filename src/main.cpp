@@ -7,6 +7,9 @@
  #include <lvgl.h>
  #include <ui.h>
  #include "lvgl_v8_port.h"
+ #include "waveshare_twai_port.h"
+
+static bool driver_installed = false; // Flag to check if the driver is installed
  
  using namespace esp_panel::drivers;
  using namespace esp_panel::board;
@@ -18,6 +21,7 @@
      Serial.println("Initializing board");
      Board *board = new Board();
      board->init();
+     driver_installed = waveshare_twai_init();
  #if LVGL_PORT_AVOID_TEARING_MODE
      auto lcd = board->getLCD();
      // When avoid tearing function is enabled, the frame buffer number should be set in the board driver
@@ -48,11 +52,16 @@
  
      /* Release the mutex */
      lvgl_port_unlock();
+     lv_textarea_add_text(ui_TextArea1, "insert this text");
+     
+     
  }
  
  void loop()
  {
      Serial.println("IDLE loop");
+     lv_arc_set_value(ui_Arc1, 50);
      delay(1000);
+     waveshare_twai_receive();// Call the receive function if the driver is installed
  }
  
