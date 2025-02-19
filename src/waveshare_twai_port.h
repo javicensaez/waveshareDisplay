@@ -28,5 +28,7 @@
 
 bool waveshare_twai_init();
 void waveshare_twai_receive();
+void waveshare_twai_transmit();
+
 
 #endif

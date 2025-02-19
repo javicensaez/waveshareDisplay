@@ -63,5 +63,6 @@ static bool driver_installed = false; // Flag to check if the driver is installe
      lv_arc_set_value(ui_Arc1, 50);
      delay(1000);
      waveshare_twai_receive();// Call the receive function if the driver is installed
+     waveshare_twai_transmit();
  }
  
